@@ -13,7 +13,7 @@ export function registerGenerateTools(
   designSystems: Map<string, DesignSystem>,
 ) {
   server.registerTool(
-    'stitch_pro_generate_page',
+    'sp_generate',
     {
       title: 'Generate Page',
       description: 'Generate a UI page with optional design system enforcement, accessibility fixes, responsive breakpoints, and framework conversion',
@@ -67,7 +67,7 @@ export function registerGenerateTools(
   );
 
   server.registerTool(
-    'stitch_pro_generate_flow',
+    'sp_flow',
     {
       title: 'Generate Multi-Screen Flow',
       description: 'Generate multiple related screens (e.g., login → dashboard → settings) in one call with consistent design',

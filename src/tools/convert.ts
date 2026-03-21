@@ -5,7 +5,7 @@ import { createContext } from '../pipeline/context.js';
 
 export function registerConvertTools(server: McpServer, pipeline: PipelineEngine) {
   server.registerTool(
-    'stitch_pro_to_react',
+    'sp_to_react',
     {
       title: 'Convert to React',
       description: 'Convert HTML/Tailwind to Next.js/React components with proper state, props, hooks, and optional shadcn/radix/MUI mapping',
@@ -36,7 +36,7 @@ export function registerConvertTools(server: McpServer, pipeline: PipelineEngine
   );
 
   server.registerTool(
-    'stitch_pro_to_vue',
+    'sp_to_vue',
     {
       title: 'Convert to Vue',
       description: 'Convert HTML/Tailwind to Vue 3 Single File Components with Composition API and optional component library mapping',
@@ -67,7 +67,7 @@ export function registerConvertTools(server: McpServer, pipeline: PipelineEngine
   );
 
   server.registerTool(
-    'stitch_pro_to_svelte',
+    'sp_to_svelte',
     {
       title: 'Convert to Svelte',
       description: 'Convert HTML/Tailwind to SvelteKit components with Svelte 5 runes ($state) and optional component library mapping',
@@ -98,7 +98,7 @@ export function registerConvertTools(server: McpServer, pipeline: PipelineEngine
   );
 
   server.registerTool(
-    'stitch_pro_extract_components',
+    'sp_extract',
     {
       title: 'Extract Components',
       description: 'Parse HTML into reusable components and map them to shadcn/radix/MUI equivalents with confidence scoring',

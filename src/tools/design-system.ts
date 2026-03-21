@@ -9,7 +9,7 @@ export function registerDesignSystemTools(
   designSystems: Map<string, DesignSystem>,
 ) {
   server.registerTool(
-    'stitch_pro_design_system_create',
+    'sp_design_create',
     {
       title: 'Create Design System',
       description: 'Generate a design system (colors, typography, spacing, rules) from a brand description. Returns a DESIGN.md and an ID for use in generation calls.',
@@ -45,7 +45,7 @@ export function registerDesignSystemTools(
   );
 
   server.registerTool(
-    'stitch_pro_apply_design_system',
+    'sp_design_apply',
     {
       title: 'Apply Design System',
       description: 'Apply a previously created design system to existing HTML — injects CSS variables, replaces fonts and colors',
@@ -56,7 +56,7 @@ export function registerDesignSystemTools(
       const ds = designSystems.get(designSystemId);
       if (!ds) {
         return {
-          content: [{ type: 'text', text: `Error: Design system "${designSystemId}" not found. Create one first with stitch_pro_design_system_create.` }],
+          content: [{ type: 'text', text: `Error: Design system "${designSystemId}" not found. Create one first with sp_design_create.` }],
           isError: true,
         };
       }

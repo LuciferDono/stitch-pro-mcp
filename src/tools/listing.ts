@@ -4,7 +4,7 @@ import { ListProjectsInput, ListScreensInput, GetScreenInput } from '../types/to
 
 export function registerListingTools(server: McpServer, client: StitchClient) {
   server.registerTool(
-    'stitch_pro_list_projects',
+    'sp_projects',
     {
       title: 'List Stitch Projects',
       description: 'List all projects in your Stitch account',
@@ -20,7 +20,7 @@ export function registerListingTools(server: McpServer, client: StitchClient) {
   );
 
   server.registerTool(
-    'stitch_pro_list_screens',
+    'sp_screens',
     {
       title: 'List Screens in Project',
       description: 'List all screens in a Stitch project',
@@ -42,7 +42,7 @@ export function registerListingTools(server: McpServer, client: StitchClient) {
   );
 
   server.registerTool(
-    'stitch_pro_get_screen',
+    'sp_screen',
     {
       title: 'Get Screen Details',
       description: 'Get a specific screen with its HTML source and image URL',

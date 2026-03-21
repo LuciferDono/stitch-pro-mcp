@@ -5,7 +5,7 @@ import { createContext } from '../pipeline/context.js';
 
 export function registerAccessibilityTools(server: McpServer, pipeline: PipelineEngine) {
   server.registerTool(
-    'stitch_pro_accessibility_audit',
+    'sp_a11y',
     {
       title: 'Accessibility Audit',
       description: 'Run WCAG 2.1 AA accessibility audit on HTML and auto-fix issues (contrast, semantics, ARIA, touch targets)',

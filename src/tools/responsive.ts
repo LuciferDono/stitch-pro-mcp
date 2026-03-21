@@ -5,7 +5,7 @@ import { createContext } from '../pipeline/context.js';
 
 export function registerResponsiveTools(server: McpServer, pipeline: PipelineEngine) {
   server.registerTool(
-    'stitch_pro_responsive_adapt',
+    'sp_responsive',
     {
       title: 'Responsive Adaptation',
       description: 'Make HTML responsive by injecting Tailwind breakpoints for mobile, tablet, and desktop',

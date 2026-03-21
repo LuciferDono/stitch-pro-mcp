@@ -18,7 +18,7 @@ import type { DesignSystem } from './types/design-system.js';
 
 export function createServer() {
   const server = new McpServer({
-    name: 'stitch-pro-mcp-server',
+    name: 'stitch-pro',
     version: '0.1.0',
   });
 
@@ -50,7 +50,7 @@ export function createServer() {
 }
 
 export async function main() {
-  logger.info('Starting stitch-pro-mcp-server v0.1.0');
+  logger.info('Starting stitch-pro v0.1.0');
 
   const server = createServer();
   const transport = new StdioServerTransport();

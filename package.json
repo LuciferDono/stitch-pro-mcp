@@ -1,11 +1,11 @@
 {
-  "name": "stitch-pro",
+  "name": "stitch-pro-mcp",
   "version": "0.1.0",
   "description": "Intelligent MCP server for Google Stitch — design systems, accessibility, responsive, framework conversion",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "stitch-pro": "dist/bin/cli.js"
+    "stitch-pro-mcp": "dist/bin/cli.js"
   },
   "scripts": {
     "build": "tsup",

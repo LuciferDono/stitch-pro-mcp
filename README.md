@@ -1,4 +1,4 @@
-# stitch-pro
+# stitch-pro-mcp
 
 An intelligent MCP server for [Google Stitch](https://stitch.withgoogle.com) that turns raw AI-generated UI into production-ready frontend code.
 
@@ -31,7 +31,7 @@ Visit [stitch.withgoogle.com](https://stitch.withgoogle.com) and grab your API k
 ### 2. Install
 
 ```bash
-npm install -g stitch-pro
+npm install -g stitch-pro-mcp
 ```
 
 ### 3. Configure Your Editor
@@ -46,7 +46,7 @@ Add to `~/.claude/settings.json`:
   "mcpServers": {
     "stitch-pro": {
       "command": "npx",
-      "args": ["-y", "stitch-pro"],
+      "args": ["-y", "stitch-pro-mcp"],
       "env": { "STITCH_API_KEY": "your-api-key" }
     }
   }
@@ -65,7 +65,7 @@ Add to `.cursor/mcp.json`:
   "mcpServers": {
     "stitch-pro": {
       "command": "npx",
-      "args": ["-y", "stitch-pro"],
+      "args": ["-y", "stitch-pro-mcp"],
       "env": { "STITCH_API_KEY": "your-api-key" }
     }
   }
@@ -84,7 +84,7 @@ Add to `.vscode/mcp.json`:
   "servers": {
     "stitch-pro": {
       "command": "npx",
-      "args": ["-y", "stitch-pro"],
+      "args": ["-y", "stitch-pro-mcp"],
       "env": { "STITCH_API_KEY": "your-api-key" }
     }
   }
@@ -103,7 +103,7 @@ Add to `~/.codeium/windsurf/mcp_config.json`:
   "mcpServers": {
     "stitch-pro": {
       "command": "npx",
-      "args": ["-y", "stitch-pro"],
+      "args": ["-y", "stitch-pro-mcp"],
       "env": { "STITCH_API_KEY": "your-api-key" }
     }
   }
@@ -122,7 +122,7 @@ Add to `~/.gemini/settings.json`:
   "mcpServers": {
     "stitch-pro": {
       "command": "npx",
-      "args": ["-y", "stitch-pro"],
+      "args": ["-y", "stitch-pro-mcp"],
       "env": { "STITCH_API_KEY": "your-api-key" }
     }
   }
@@ -141,7 +141,7 @@ Add to `~/.codex/config.json`:
   "mcpServers": {
     "stitch-pro": {
       "command": "npx",
-      "args": ["-y", "stitch-pro"],
+      "args": ["-y", "stitch-pro-mcp"],
       "env": { "STITCH_API_KEY": "your-api-key" }
     }
   }
@@ -158,7 +158,7 @@ Add to `~/.codex/config.json`:
   "mcpServers": {
     "stitch-pro": {
       "command": "npx",
-      "args": ["-y", "stitch-pro"],
+      "args": ["-y", "stitch-pro-mcp"],
       "env": { "STITCH_API_KEY": "your-api-key" }
     }
   }
@@ -175,7 +175,7 @@ Add to `~/.codex/config.json`:
   "mcpServers": {
     "stitch-pro": {
       "command": "npx",
-      "args": ["-y", "stitch-pro"],
+      "args": ["-y", "stitch-pro-mcp"],
       "env": { "STITCH_API_KEY": "your-api-key" }
     }
   }
@@ -320,8 +320,8 @@ Auto-runs: a11y fix → responsive inject → component extract → Vue 3 emit
 ## Development
 
 ```bash
-git clone https://github.com/LuciferDono/stitch-pro-mcp-server.git
-cd stitch-pro-mcp-server
+git clone https://github.com/LuciferDono/stitch-pro-mcp.git
+cd stitch-pro-mcp
 npm install
 npm run typecheck
 npm run build

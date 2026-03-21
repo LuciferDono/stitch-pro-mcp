@@ -62,8 +62,11 @@ export async function main() {
   logger.info('Server connected via stdio');
 }
 
-// Auto-start when run directly
-main().catch((err) => {
-  logger.error('Fatal error', { error: err.message });
-  process.exit(1);
-});
+// Only auto-start when run directly (not when imported by cli.ts)
+const isDirectRun = !process.argv[1]?.includes('cli');
+if (isDirectRun) {
+  main().catch((err) => {
+    logger.error('Fatal error', { error: err.message });
+    process.exit(1);
+  });
+}

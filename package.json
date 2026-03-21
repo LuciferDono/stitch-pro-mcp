@@ -1,0 +1,57 @@
+{
+  "name": "stitch-pro-mcp-server",
+  "version": "0.1.0",
+  "description": "Intelligent MCP server for Google Stitch — design systems, accessibility, responsive, framework conversion",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "stitch-pro-mcp-server": "dist/bin/cli.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsx src/index.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "mcp",
+    "stitch",
+    "google",
+    "ui",
+    "design",
+    "accessibility",
+    "react",
+    "vue",
+    "svelte"
+  ],
+  "author": "Pranav R. Jadhav",
+  "license": "MIT",
+  "dependencies": {
+    "@google/stitch-sdk": "latest",
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "axe-core": "^4.10.0",
+    "color": "^4.2.3",
+    "css-tree": "^3.1.0",
+    "handlebars": "^4.7.8",
+    "jsdom": "^24.1.0",
+    "lru-cache": "^10.4.0",
+    "parse5": "^7.2.1",
+    "uuid": "^9.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/color": "^4.2.1",
+    "@types/css-tree": "^2.3.0",
+    "@types/jsdom": "^21.1.0",
+    "@types/node": "^22.0.0",
+    "@types/uuid": "^9.0.0",
+    "tsup": "^8.3.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

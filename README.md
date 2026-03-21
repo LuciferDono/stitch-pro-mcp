@@ -1,32 +1,53 @@
-# stitch-pro-mcp
+<p align="center">
+  <h1 align="center">stitch-pro-mcp</h1>
+  <p align="center">
+    The intelligent MCP server for Google Stitch.<br/>
+    Design systems. Accessibility. Responsive. React/Vue/Svelte. Auto-orchestration.<br/>
+    <strong>17 tools. One prompt.</strong>
+  </p>
+  <p align="center">
+    <a href="https://www.npmjs.com/package/stitch-pro-mcp"><img src="https://img.shields.io/npm/v/stitch-pro-mcp?style=flat-square&color=blue" alt="npm"></a>
+    <a href="https://github.com/LuciferDono/stitch-pro-mcp/blob/master/LICENSE"><img src="https://img.shields.io/github/license/LuciferDono/stitch-pro-mcp?style=flat-square" alt="license"></a>
+    <a href="https://github.com/LuciferDono/stitch-pro-mcp"><img src="https://img.shields.io/github/stars/LuciferDono/stitch-pro-mcp?style=flat-square" alt="stars"></a>
+    <a href="https://stitch.withgoogle.com"><img src="https://img.shields.io/badge/Google-Stitch-4285F4?style=flat-square&logo=google" alt="Google Stitch"></a>
+    <a href="https://modelcontextprotocol.io"><img src="https://img.shields.io/badge/MCP-compatible-green?style=flat-square" alt="MCP"></a>
+  </p>
+  <p align="center">
+    <a href="#quick-start">Quick Start</a> ·
+    <a href="#tools">Tools</a> ·
+    <a href="#examples">Examples</a> ·
+    <a href="#architecture">Architecture</a>
+  </p>
+</p>
 
-An intelligent MCP server for [Google Stitch](https://stitch.withgoogle.com) that turns raw AI-generated UI into production-ready frontend code.
+---
 
-**Stitch generates beautiful screens. We handle everything after that.**
+## The Problem
 
-Design system enforcement. WCAG accessibility. Responsive breakpoints. React/Vue/Svelte conversion. Component library mapping. All through a single MCP interface.
+[Google Stitch](https://stitch.withgoogle.com) generates beautiful UI from text prompts. But it outputs **raw HTML** — no design system, no accessibility, no responsive breakpoints, no framework components.
 
-## Why
+Every existing Stitch MCP is a thin wrapper. Generate screen, get HTML, done.
 
-Every existing Stitch MCP is a thin wrapper — generate screen, get HTML, done. Nobody handles the gap between generation and production:
+**stitch-pro-mcp fills the gap between generation and production.**
 
-| Feature | Existing MCPs | stitch-pro |
-|---------|--------------|------------|
-| Generate screens | Yes | Yes |
-| Design system enforcement | No | Yes — create brand tokens, enforce across all screens |
-| Accessibility | No | Yes — WCAG 2.1 AA audit + auto-fix |
-| Responsive | No | Yes — Tailwind breakpoint injection |
-| React/Next.js output | No | Yes — .tsx with hooks, state, component extraction |
-| Vue 3 output | No | Yes — SFCs with Composition API |
-| SvelteKit output | No | Yes — Svelte 5 $state runes |
-| Component mapping | No | Yes — shadcn/radix/MUI with confidence scoring |
-| Multi-screen flows | No | Yes — generate entire app flows in one call |
+| | Existing MCPs | stitch-pro-mcp |
+|---|:---:|:---:|
+| Generate screens | :white_check_mark: | :white_check_mark: |
+| Design system enforcement | :x: | :white_check_mark: |
+| WCAG 2.1 AA accessibility | :x: | :white_check_mark: |
+| Responsive breakpoints | :x: | :white_check_mark: |
+| React / Next.js output | :x: | :white_check_mark: |
+| Vue 3 output | :x: | :white_check_mark: |
+| SvelteKit output | :x: | :white_check_mark: |
+| shadcn/radix/MUI mapping | :x: | :white_check_mark: |
+| Multi-screen flows | :x: | :white_check_mark: |
+| Auto-orchestration | :x: | :white_check_mark: |
 
 ## Quick Start
 
 ### 1. Get a Stitch API Key
 
-Visit [stitch.withgoogle.com](https://stitch.withgoogle.com) and grab your API key.
+Visit [stitch.withgoogle.com](https://stitch.withgoogle.com) and create an API key.
 
 ### 2. Install
 
@@ -39,7 +60,11 @@ npm install -g stitch-pro-mcp
 <details>
 <summary><b>Claude Code</b></summary>
 
-Add to `~/.claude/settings.json`:
+```bash
+claude mcp add stitch-pro -- npx -y stitch-pro-mcp
+```
+
+Or add to `~/.claude/settings.json`:
 
 ```json
 {
@@ -184,55 +209,108 @@ Add to `~/.codex/config.json`:
 
 </details>
 
-Or set `STITCH_API_KEY` as a system environment variable and omit the `env` block.
+> **Tip:** Set `STITCH_API_KEY` as a system environment variable and omit the `env` block entirely.
+
+---
 
 ## Tools
 
 ### Smart (Auto-Orchestration)
 
-| Tool | Description |
+| Tool | What It Does |
 |------|-------------|
-| `sp_auto` | **The god tool.** Describe what you want in plain English — auto-detects framework, component library, theme, device, and chains design system creation → generation → a11y → responsive → conversion. One call does everything. |
-| `sp_analyze` | Analyze any HTML — reports a11y issues, missing responsiveness, component mapping potential, color sprawl. Returns a recommended tool chain. |
-| `sp_smart_convert` | Convert HTML to a framework but auto-runs a11y + responsive fixes first. No manual chaining needed. |
+| **`sp_auto`** | The god tool. Describe what you want in plain English — auto-detects framework, library, theme, device type, and chains everything: design system → generation → a11y → responsive → conversion. One call. |
+| **`sp_analyze`** | Feed it any HTML. Returns accessibility issues, responsiveness gaps, component mapping potential, and a prioritized tool chain recommendation. |
+| **`sp_smart_convert`** | Like `sp_to_react`/`sp_to_vue`/`sp_to_svelte`, but auto-runs a11y fixes and responsive injection first. No manual chaining. |
 
 ### Generation
 
-| Tool | Description |
+| Tool | What It Does |
 |------|-------------|
-| `sp_generate` | Generate a UI page — design system, a11y, responsive, framework conversion |
+| `sp_generate` | Generate a UI page with full pipeline — design system, a11y, responsive, framework conversion |
 | `sp_flow` | Generate multi-screen flows (login → dashboard → settings) in one call |
 
 ### Design System
 
-| Tool | Description |
+| Tool | What It Does |
 |------|-------------|
-| `sp_design_create` | Generate a design system from a brand description — colors, typography, spacing |
-| `sp_design_apply` | Apply a design system to HTML — CSS variable injection, font/color enforcement |
+| `sp_design_create` | Generate a complete design system from a brand description — colors, typography, spacing, rules |
+| `sp_design_apply` | Apply a design system to existing HTML — CSS variable injection, font/color enforcement |
 
 ### Quality
 
-| Tool | Description |
+| Tool | What It Does |
 |------|-------------|
-| `sp_a11y` | WCAG 2.1 AA audit with auto-fix — contrast, ARIA, semantics, touch targets |
-| `sp_responsive` | Inject Tailwind responsive breakpoints for mobile/tablet/desktop |
+| `sp_a11y` | WCAG 2.1 AA audit with auto-fix — contrast, ARIA, semantics, touch targets, lang attr |
+| `sp_responsive` | Inject Tailwind responsive breakpoints for mobile, tablet, desktop |
 
 ### Framework Conversion
 
-| Tool | Description |
+| Tool | What It Does |
 |------|-------------|
-| `sp_to_react` | HTML → Next.js/React .tsx with useState, handlers, component extraction |
+| `sp_to_react` | HTML → Next.js/React .tsx with `useState`, event handlers, component extraction |
 | `sp_to_vue` | HTML → Vue 3 SFCs with `<script setup>`, `ref()`, `@event` bindings |
-| `sp_to_svelte` | HTML → SvelteKit with Svelte 5 `$state` runes |
-| `sp_extract` | Map HTML → shadcn/radix/MUI components with confidence scoring |
+| `sp_to_svelte` | HTML → SvelteKit components with Svelte 5 `$state` runes |
+| `sp_extract` | Map HTML elements to shadcn/radix/MUI components with confidence scoring |
 
 ### Listing
 
-| Tool | Description |
+| Tool | What It Does |
 |------|-------------|
 | `sp_projects` | List all Stitch projects |
 | `sp_screens` | List screens in a project |
-| `sp_screen` | Get a screen's HTML and image |
+| `sp_screen` | Get a screen's HTML source and image URL |
+
+---
+
+## Examples
+
+### One prompt, full output
+
+```
+sp_auto("Dark SaaS pricing page in React with shadcn")
+
+  Auto-detects: react, shadcn, dark theme, SaaS
+  Auto-chains:
+    1. Create dark design system
+    2. Enrich prompt with brand tokens
+    3. Generate page via Stitch API
+    4. WCAG 2.1 AA audit + auto-fix
+    5. Responsive breakpoint injection
+    6. Convert to Next.js .tsx with shadcn
+
+  → Returns: files[], dependencies{}, a11y report, timings
+```
+
+### Analyze before acting
+
+```
+sp_analyze(html)
+
+  → sp_a11y (HIGH): missing lang, no <main>
+  → sp_responsive (HIGH): fixed widths
+  → sp_extract (MEDIUM): buttons + cards → shadcn
+  → Suggested chain: [sp_a11y, sp_responsive, sp_extract, sp_to_react]
+```
+
+### Smart convert
+
+```
+sp_smart_convert(html, "vue", "radix")
+
+  Auto-runs: a11y → responsive → extract → Vue 3 emit
+  → Returns: .vue SFCs, WCAG compliant, responsive
+```
+
+### Manual tools
+
+```
+sp_to_react(html, { componentLibrary: "shadcn" })
+sp_a11y(html, { autoFix: true })
+sp_design_create({ name: "Acme", primaryColor: "#6366F1" })
+```
+
+---
 
 ## Architecture
 
@@ -241,7 +319,12 @@ User prompt
     │
     ▼
 ┌──────────────────────────────────────────┐
-│              stitch-pro                  │
+│            stitch-pro-mcp                │
+│                                          │
+│  ┌─ sp_auto (intent parser) ───────────┐ │
+│  │  Detects: framework, library, theme │ │
+│  │  device type, dark mode, industry   │ │
+│  └─────────────────────────────────────┘ │
 │                                          │
 │  Pre-Generate                            │
 │  └─ Design System Enrichment             │
@@ -263,59 +346,25 @@ User prompt
 └──────────────────────────────────────────┘
 ```
 
-## Examples
+Pipeline is linear, processors are stateless, Stitch API call is injected — fully testable without hitting the API.
 
-### One prompt, full output (sp_auto)
+---
 
-```
-→ sp_auto (prompt: "Dark SaaS pricing page in React with shadcn", projectId: "...")
+## Supported Platforms
 
-Auto-detects:
-  ✓ framework: react
-  ✓ componentLibrary: shadcn
-  ✓ darkMode: true
-  ✓ industry: SaaS
+| Platform | Status |
+|----------|--------|
+| [Claude Code](https://claude.com/claude-code) | :white_check_mark: |
+| [Cursor](https://cursor.com) | :white_check_mark: |
+| [VS Code (Copilot)](https://code.visualstudio.com) | :white_check_mark: |
+| [Windsurf](https://codeium.com/windsurf) | :white_check_mark: |
+| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | :white_check_mark: |
+| [Codex (OpenAI)](https://openai.com/codex) | :white_check_mark: |
+| [Antigravity](https://antigravity.dev) | :white_check_mark: |
+| [OpenCode](https://github.com/opencode-ai/opencode) | :white_check_mark: |
+| Any MCP-compatible client | :white_check_mark: |
 
-Auto-chains:
-  1. Creates dark-themed design system
-  2. Enriches prompt with brand tokens
-  3. Generates page via Stitch API
-  4. Runs WCAG 2.1 AA audit + auto-fix
-  5. Injects responsive breakpoints
-  6. Converts to Next.js .tsx with shadcn components
-
-→ Returns: ready-to-use files, dependencies, a11y report, timing breakdown
-```
-
-### Analyze before acting (sp_analyze)
-
-```
-→ sp_analyze (html: "<div class='flex gap-4 bg-blue-500'>...")
-
-→ Returns:
-  recommendations:
-    - sp_a11y (HIGH): missing lang attr, no <main>
-    - sp_responsive (HIGH): fixed widths detected
-    - sp_extract (MEDIUM): buttons + cards mappable to shadcn
-  suggestedChain: ["sp_a11y", "sp_responsive", "sp_extract", "sp_to_react"]
-```
-
-### Smart convert (auto-preprocesses)
-
-```
-→ sp_smart_convert (html: "...", framework: "vue", componentLibrary: "radix")
-
-Auto-runs: a11y fix → responsive inject → component extract → Vue 3 emit
-→ Returns: .vue SFCs with <script setup>, ref() state, WCAG compliant, responsive
-```
-
-### Manual tools still work
-
-```
-→ sp_to_react (html: "...", componentLibrary: "shadcn")
-→ sp_a11y (html: "...", autoFix: true)
-→ sp_design_create (name: "Acme", primaryColor: "#6366F1")
-```
+---
 
 ## Development
 
@@ -323,29 +372,36 @@ Auto-runs: a11y fix → responsive inject → component extract → Vue 3 emit
 git clone https://github.com/LuciferDono/stitch-pro-mcp.git
 cd stitch-pro-mcp
 npm install
-npm run typecheck
-npm run build
-npm run dev
-npm test
+npm run typecheck    # Type checking
+npm run build        # Build to dist/
+npm run dev          # Run in dev mode
+npm test             # Run tests
 ```
 
 ## Tech Stack
 
-- **TypeScript** — 28 source files, full type safety
-- **@modelcontextprotocol/sdk** — MCP server (stdio transport)
-- **@google/stitch-sdk** — Stitch API client
-- **parse5** — HTML → AST (no browser needed)
-- **axe-core + jsdom** — WCAG accessibility auditing
-- **Zod** — runtime validation for all 14 tools
-- **color** — color math for design system generation
+| Dependency | Purpose |
+|-----------|---------|
+| `@modelcontextprotocol/sdk` | MCP server framework (stdio) |
+| `@google/stitch-sdk` | Stitch API client |
+| `parse5` | HTML → AST (no browser) |
+| `axe-core` + `jsdom` | WCAG accessibility auditing |
+| `zod` | Runtime input validation |
+| `color` | Color math for design systems |
+| TypeScript | Full type safety, 30 source files |
 
 ## Roadmap
 
 - [ ] `sp_batch` — full app frontend in one call (layout + nav + pages + routing)
-- [ ] Screenshot-to-code pipeline
-- [ ] Figma import via Stitch bridge
-- [ ] LLM-powered design system generation
+- [ ] Screenshot-to-code pipeline (screenshot → Stitch → framework output)
+- [ ] Figma import via Stitch paste bridge
+- [ ] LLM-powered design system generation (Claude API)
 - [ ] Streamable HTTP transport for remote deployment
+- [ ] npm publish for `npx stitch-pro-mcp`
+
+## Contributing
+
+PRs welcome. Open an issue first for major changes.
 
 ## License
 

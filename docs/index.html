@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>stitch-pro-mcp — The Intelligent MCP for Google Stitch</title>
+  <meta name="description" content="Turn raw AI-generated UI into production-ready React, Vue, and Svelte components. Design systems, WCAG accessibility, responsive breakpoints, auto-orchestration. 17 tools, one prompt.">
+  <meta name="keywords" content="MCP, Google Stitch, React, Vue, Svelte, accessibility, design system, shadcn, AI, UI generation">
+  <meta property="og:title" content="stitch-pro-mcp">
+  <meta property="og:description" content="The intelligent MCP server for Google Stitch. 17 tools. One prompt.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://luciferdono.github.io/stitch-pro-mcp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0b;
+      --bg-card: #111113;
+      --bg-card-hover: #18181b;
+      --border: #27272a;
+      --text: #fafafa;
+      --text-muted: #a1a1aa;
+      --primary: #6366f1;
+      --primary-glow: rgba(99, 102, 241, 0.15);
+      --green: #22c55e;
+      --red: #ef4444;
+      --font: 'Space Grotesk', -apple-system, sans-serif;
+      --font-display: 'Sora', 'Space Grotesk', sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ─── Nav ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(10, 10, 11, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      padding: 16px 0;
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav .logo {
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: -0.5px;
+    }
+
+    nav .logo span { color: var(--primary); }
+
+    nav .links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    nav .links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    nav .links a:hover { color: var(--text); }
+
+    /* ─── Hero ─── */
+    .hero {
+      padding: 160px 0 100px;
+      text-align: center;
+    }
+
+    .hero .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary-glow);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 9999px;
+      padding: 6px 16px;
+      font-size: 13px;
+      color: var(--primary);
+      font-weight: 500;
+      margin-bottom: 32px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 .gradient {
+      background: linear-gradient(135deg, var(--primary), #a78bfa, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #4f46e5;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--text-muted);
+    }
+
+    .install-cmd {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 24px;
+      margin-top: 32px;
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .install-cmd code { color: var(--green); }
+
+    /* ─── Features Grid ─── */
+    .section {
+      padding: 100px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 16px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+      transition: all 0.25s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--primary);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+    }
+
+    .feature-card .icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ─── Tools Table ─── */
+    .tools-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .tools-table th {
+      text-align: left;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .tools-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(39, 39, 42, 0.5);
+    }
+
+    .tools-table tr:hover td {
+      background: var(--bg-card);
+    }
+
+    .tool-name {
+      font-family: var(--mono);
+      color: var(--primary);
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    .tool-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .tag-smart { background: rgba(99, 102, 241, 0.15); color: var(--primary); }
+    .tag-gen { background: rgba(34, 197, 94, 0.15); color: var(--green); }
+    .tag-quality { background: rgba(251, 191, 36, 0.15); color: #fbbf24; }
+    .tag-convert { background: rgba(236, 72, 153, 0.15); color: #ec4899; }
+    .tag-list { background: rgba(161, 161, 170, 0.1); color: var(--text-muted); }
+
+    /* ─── Platforms ─── */
+    .platforms-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .platform-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+
+    .platform-badge:hover {
+      border-color: var(--primary);
+      background: var(--bg-card-hover);
+    }
+
+    .check { color: var(--green); }
+
+    /* ─── CTA ─── */
+    .cta {
+      text-align: center;
+      padding: 100px 0;
+    }
+
+    .cta h2 {
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+
+    .cta p {
+      color: var(--text-muted);
+      font-size: 16px;
+      margin-bottom: 32px;
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    footer a { color: var(--primary); text-decoration: none; }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 768px) {
+      .hero { padding: 120px 0 60px; }
+      nav .links { display: none; }
+      .features-grid { grid-template-columns: 1fr; }
+      .tools-table { font-size: 13px; }
+      .tools-table th:nth-child(3),
+      .tools-table td:nth-child(3) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container">
+      <div class="logo">stitch-pro<span>-mcp</span></div>
+      <ul class="links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#tools">Tools</a></li>
+        <li><a href="#platforms">Platforms</a></li>
+        <li><a href="https://github.com/LuciferDono/stitch-pro-mcp">GitHub</a></li>
+        <li><a href="https://www.npmjs.com/package/stitch-pro-mcp">npm</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <div class="badge">17 MCP tools &middot; One prompt</div>
+      <h1>
+        Raw AI screens to<br>
+        <span class="gradient">production components</span>
+      </h1>
+      <p>
+        The intelligent MCP server for Google Stitch. Design systems, WCAG accessibility, responsive breakpoints, React/Vue/Svelte conversion. Auto-orchestrated.
+      </p>
+      <div class="hero-buttons">
+        <a href="https://github.com/LuciferDono/stitch-pro-mcp" class="btn btn-primary">
+          View on GitHub
+        </a>
+        <a href="https://www.npmjs.com/package/stitch-pro-mcp" class="btn btn-secondary">
+          npm package
+        </a>
+      </div>
+      <div class="install-cmd">
+        $ <code>npx stitch-pro-mcp</code>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2>The gap between generation and production</h2>
+        <p>Stitch outputs raw HTML. We turn it into something you'd actually ship.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="icon">&#x1f3a8;</div>
+          <h3>Design Systems</h3>
+          <p>Generate brand tokens from a description. Colors, typography, spacing, rules. Enforce across every screen with CSS custom properties.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">&#x267f;</div>
+          <h3>WCAG Accessibility</h3>
+          <p>Automated WCAG 2.1 AA audit via axe-core. Auto-fixes: lang attr, alt text, ARIA labels, semantic HTML, 44px touch targets.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">&#x1f4f1;</div>
+          <h3>Responsive</h3>
+          <p>Injects Tailwind breakpoints for mobile, tablet, desktop. Replaces fixed widths, scales grids, adapts typography.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">&#x269b;</div>
+          <h3>React / Next.js</h3>
+          <p>HTML to .tsx with useState hooks, event handlers, component extraction. App Router or Pages. 'use client' directives.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">&#x1f49a;</div>
+          <h3>Vue 3</h3>
+          <p>HTML to Single File Components. script setup, ref(), @event bindings, Composition API. Clean, idiomatic Vue.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">&#x1f525;</div>
+          <h3>SvelteKit</h3>
+          <p>HTML to Svelte 5 components. $state runes, on:event syntax, +page.svelte routing. Modern Svelte from the start.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">&#x1f9e9;</div>
+          <h3>Component Mapping</h3>
+          <p>Heuristic pattern matching maps raw HTML to shadcn/ui, Radix, or MUI components. Confidence-scored — no wrong mappings.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">&#x1f916;</div>
+          <h3>Auto-Orchestration</h3>
+          <p>sp_auto parses natural language intent — framework, library, theme, device — and chains every tool automatically. One prompt, full output.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">&#x1f50d;</div>
+          <h3>Smart Analysis</h3>
+          <p>sp_analyze inspects any HTML and recommends which tools to run, with priority scoring and a suggested execution chain.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="tools" style="background: var(--bg-card);">
+    <div class="container">
+      <div class="section-header">
+        <h2>17 Tools</h2>
+        <p>Each tool does one thing well. sp_auto chains them all.</p>
+      </div>
+      <table class="tools-table">
+        <thead>
+          <tr><th>Tool</th><th>Category</th><th>What It Does</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="tool-name">sp_auto</td><td><span class="tool-tag tag-smart">smart</span></td><td>Natural language to production code. Auto-chains everything.</td></tr>
+          <tr><td class="tool-name">sp_analyze</td><td><span class="tool-tag tag-smart">smart</span></td><td>Analyze HTML, recommend tools, priority-scored chain.</td></tr>
+          <tr><td class="tool-name">sp_smart_convert</td><td><span class="tool-tag tag-smart">smart</span></td><td>Convert with auto a11y + responsive preprocessing.</td></tr>
+          <tr><td class="tool-name">sp_generate</td><td><span class="tool-tag tag-gen">generate</span></td><td>Generate a page with full pipeline.</td></tr>
+          <tr><td class="tool-name">sp_flow</td><td><span class="tool-tag tag-gen">generate</span></td><td>Multi-screen flow in one call.</td></tr>
+          <tr><td class="tool-name">sp_design_create</td><td><span class="tool-tag tag-gen">design</span></td><td>Brand description to design system.</td></tr>
+          <tr><td class="tool-name">sp_design_apply</td><td><span class="tool-tag tag-gen">design</span></td><td>Apply design system to HTML.</td></tr>
+          <tr><td class="tool-name">sp_a11y</td><td><span class="tool-tag tag-quality">quality</span></td><td>WCAG 2.1 AA audit + auto-fix.</td></tr>
+          <tr><td class="tool-name">sp_responsive</td><td><span class="tool-tag tag-quality">quality</span></td><td>Tailwind responsive breakpoints.</td></tr>
+          <tr><td class="tool-name">sp_to_react</td><td><span class="tool-tag tag-convert">convert</span></td><td>HTML to Next.js/React .tsx.</td></tr>
+          <tr><td class="tool-name">sp_to_vue</td><td><span class="tool-tag tag-convert">convert</span></td><td>HTML to Vue 3 SFC.</td></tr>
+          <tr><td class="tool-name">sp_to_svelte</td><td><span class="tool-tag tag-convert">convert</span></td><td>HTML to SvelteKit.</td></tr>
+          <tr><td class="tool-name">sp_extract</td><td><span class="tool-tag tag-convert">convert</span></td><td>Map to shadcn/radix/MUI.</td></tr>
+          <tr><td class="tool-name">sp_projects</td><td><span class="tool-tag tag-list">list</span></td><td>List Stitch projects.</td></tr>
+          <tr><td class="tool-name">sp_screens</td><td><span class="tool-tag tag-list">list</span></td><td>List screens in project.</td></tr>
+          <tr><td class="tool-name">sp_screen</td><td><span class="tool-tag tag-list">list</span></td><td>Get screen HTML + image.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="platforms">
+    <div class="container">
+      <div class="section-header">
+        <h2>Works everywhere</h2>
+        <p>Any MCP-compatible client. Zero config beyond the API key.</p>
+      </div>
+      <div class="platforms-grid">
+        <div class="platform-badge"><span class="check">&#10003;</span> Claude Code</div>
+        <div class="platform-badge"><span class="check">&#10003;</span> Cursor</div>
+        <div class="platform-badge"><span class="check">&#10003;</span> VS Code</div>
+        <div class="platform-badge"><span class="check">&#10003;</span> Windsurf</div>
+        <div class="platform-badge"><span class="check">&#10003;</span> Gemini CLI</div>
+        <div class="platform-badge"><span class="check">&#10003;</span> Codex</div>
+        <div class="platform-badge"><span class="check">&#10003;</span> Antigravity</div>
+        <div class="platform-badge"><span class="check">&#10003;</span> OpenCode</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Start building</h2>
+      <p>One prompt. Production-ready components.</p>
+      <div class="install-cmd" style="margin: 0 auto;">
+        $ <code>npx stitch-pro-mcp</code>
+      </div>
+      <br><br>
+      <a href="https://github.com/LuciferDono/stitch-pro-mcp" class="btn btn-primary">
+        View on GitHub
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      Built by <a href="https://github.com/LuciferDono">Pranav R. Jadhav</a> &middot;
+      MIT License &middot;
+      <a href="https://github.com/LuciferDono/stitch-pro-mcp">GitHub</a>
+    </div>
+  </footer>
+
+</body>
+</html>

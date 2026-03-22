@@ -3,7 +3,7 @@
   <p align="center">
     The intelligent MCP server for Google Stitch.<br/>
     Design systems. Accessibility. Responsive. React/Vue/Svelte. Auto-orchestration.<br/>
-    <strong>17 tools. One prompt.</strong>
+    <strong>18 tools. One prompt.</strong>
   </p>
   <p align="center">
     <a href="https://www.npmjs.com/package/stitch-pro-mcp"><img src="https://img.shields.io/npm/v/stitch-pro-mcp?style=flat-square&color=blue&label=npm" alt="npm version"></a>
@@ -303,6 +303,12 @@ npm install -g stitch-pro-mcp@latest
 | `sp_to_svelte` | HTML → SvelteKit components with Svelte 5 `$state` runes |
 | `sp_extract` | Map HTML elements to shadcn/radix/MUI components with confidence scoring |
 
+### Project Management
+
+| Tool | What It Does |
+|------|-------------|
+| `sp_create_project` | Create a new Stitch project. Returns the project ID needed for generation tools. |
+
 ### Listing
 
 | Tool | What It Does |
@@ -436,14 +442,14 @@ npm test             # Run tests
 | `@google/stitch-sdk` | Stitch API client |
 | `parse5` | HTML → AST (no browser) |
 | `axe-core` + `jsdom` | WCAG accessibility auditing |
-| `zod` | Runtime input validation (all 17 tools) |
+| `zod` | Runtime input validation (all 18 tools) |
 | `color` | Color math for design systems |
 | `vitest` | 81 tests across 11 test suites |
 | TypeScript | Full type safety, 29 source files, 4,700+ lines |
 
 ## Stats
 
-- **17** MCP tools
+- **18** MCP tools
 - **7** pipeline processors
 - **3** framework emitters (React, Vue, Svelte)
 - **81** tests passing
